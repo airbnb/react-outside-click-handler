@@ -1,5 +1,8 @@
 # react-outside-click-handler
 
+[![Build Status](https://travis-ci.org/taehwanno/react-outside-click-handler.svg?branch=master)](https://travis-ci.org/taehwanno/react-outside-click-handler)
+[![Coverage Status](https://coveralls.io/repos/github/taehwanno/react-outside-click-handler/badge.svg?branch=master)](https://coveralls.io/github/taehwanno/react-outside-click-handler?branch=master)
+
 React Component for handling some specific component outside click
 
 **Table of contents**
