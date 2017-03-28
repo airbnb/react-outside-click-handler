@@ -11,7 +11,7 @@ module.exports = (config) => {
 
   if (config.coverage) {
     browsers = ['PhantomJS'];
-    reporters = ['mocha', 'coverage'];
+    reporters = ['mocha', 'coverage', 'coveralls'];
     preprocessors = ['webpack'];
   }
 
@@ -58,6 +58,7 @@ module.exports = (config) => {
     plugins: [
       'karma-chai',
       'karma-coverage',
+      'karma-coveralls',
       'karma-firefox-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
