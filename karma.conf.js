@@ -5,7 +5,7 @@ const webpack = require('webpack');
 process.env.BABEL_ENV = 'test';
 
 module.exports = (config) => {
-  let browsers = ['Chrome', 'Firefox'];
+  let browsers = ['Firefox'];
   let reporters = ['mocha'];
   let preprocessors = ['webpack', 'sourcemap'];
 
@@ -57,7 +57,6 @@ module.exports = (config) => {
     webpackMiddleware: { noInfo: true },
     plugins: [
       'karma-chai',
-      'karma-chrome-launcher',
       'karma-coverage',
       'karma-firefox-launcher',
       'karma-mocha',
