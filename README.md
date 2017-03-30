@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/taehwanno/react-outside-click-handler.svg?branch=master)](https://travis-ci.org/taehwanno/react-outside-click-handler)
 [![Coverage Status](https://coveralls.io/repos/github/taehwanno/react-outside-click-handler/badge.svg?branch=master)](https://coveralls.io/github/taehwanno/react-outside-click-handler?branch=master)
+[![npm version](https://badge.fury.io/js/react-outside-click-handler.svg)](https://badge.fury.io/js/react-outside-click-handler)
 
 React Component for handling some specific component outside click
 
@@ -27,7 +28,7 @@ yarn add react-outside-click-handler
 ### props
 
 - `onOutsideClick` (*Function*): outside click handler
-- `useCapture` (*Boolean*): See [link's useCapture section](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+- `useCapture` (*Boolean*): See [link's useCapture section](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) (Default: `true`)
 
 # Example
 
