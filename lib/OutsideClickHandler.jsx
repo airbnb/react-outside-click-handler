@@ -17,22 +17,19 @@ class OutsideClickHandler extends React.Component {
   constructor(props) {
     super(props);
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
+    this.setChildNode = this.setChildNode.bind(this);
   }
 
   componentDidMount() {
-    if (document.addEventListener) {
-      document.addEventListener('click', this.handleOutsideClick, this.props.useCapture);
-    } else {
-      document.attachEvent('onclick', this.handleOutsideClick);
-    }
+    document.addEventListener('click', this.handleOutsideClick, this.props.useCapture);
   }
 
   componentWillUnmount() {
-    if (document.removeEventListener) {
-      document.removeEventListener('click', this.handleOutsideClick, this.props.useCapture);
-    } else {
-      document.detachEvent('onclick', this.handleOutsideClick);
-    }
+    document.removeEventListener('click', this.handleOutsideClick, this.props.useCapture);
+  }
+
+  setChildNode(ref) {
+    this.childNode = ref;
   }
 
   handleOutsideClick(e) {
@@ -44,7 +41,7 @@ class OutsideClickHandler extends React.Component {
 
   render() {
     return (
-      <div ref={(ref) => { this.childNode = ref; }}>
+      <div ref={this.setChildNode}>
         {this.props.children}
       </div>
     );
