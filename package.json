@@ -27,7 +27,6 @@
     "test:coverage": "NODE_ENV=test karma start --coverage",
     "test:watch": "npm test -- --auto-watch --no-single-run"
   },
-  "dependencies": {},
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.18.2",
@@ -62,14 +61,21 @@
     "karma-webpack": "^1.8.1",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "react": "^15.4.2",
+    "react": "^15.6.0",
     "react-addons-test-utils": "^15.4.1",
-    "react-dom": "^15.4.2",
+    "react-dom": "^15.6.0",
     "react-hot-loader": "^1.3.1",
     "sinon": "^2.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0",
     "webpack-merge": "^2.6.1"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
+  "peerDependencies": {
+    "react": "0.14.x || 15.x || 16.x",
+    "react-dom": "0.14.x || 15.x || 16.x"
   }
 }
