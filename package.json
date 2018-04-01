@@ -1,6 +1,6 @@
 {
   "name": "react-outside-click-handler",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/OutsideClickHandler.js",
   "description": "React Outside Click Handler",
   "license": "MIT",
