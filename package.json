@@ -18,60 +18,60 @@
   },
   "homepage": "https://github.com/taehwanno/react-outside-click-handler",
   "scripts": {
-    "start": "yarn serve",
-    "build": "webpack --config webpack.dist.config.js --progress",
+    "build": "yarn clean && yarn build:dev && yarn build:prod",
+    "build:dev": "cross-env NODE_ENV=development rollup -c -i lib/OutsideClickHandler.jsx -o dist/OutsideClickHandler.js",
+    "build:prod": "cross-env NODE_ENV=production rollup -c -i lib/OutsideClickHandler.jsx -o dist/OutsideClickHandler.min.js",
+    "clean": "rimraf dist",
     "lint": "eslint lib test example --ext .js,.jsx",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
     "test": "cross-env NODE_ENV=test jest --config jest.config.json",
     "test:coverage": "yarn test --coverage",
     "test:watch": "yarn test --watch",
     "ncu": "ncu"
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
-    "babel-loader": "^7.1.4",
     "babel-preset-airbnb": "^2.4.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "classnames": "^2.2.5",
-    "clean-webpack-plugin": "^0.1.14",
     "coveralls": "^3.0.0",
     "cross-env": "^5.1.4",
-    "css-loader": "^0.26.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "html-webpack-plugin": "^2.26.0",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
     "lint-staged": "^7.0.2",
     "npm-check-updates": "^2.14.1",
+    "prop-types": "^15.6.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-hot-loader": "^4.0.0",
     "react-test-renderer": "^16.3.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
-    "webpack-merge": "^2.6.1"
+    "rimraf": "^2.6.2",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^3.0.0"
   },
-  "dependencies": {
-    "prop-types": "^15.6.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
+    "prop-types": "^15.5.0",
     "react": "0.14.x || 15.x || 16.x",
     "react-dom": "0.14.x || 15.x || 16.x"
   }

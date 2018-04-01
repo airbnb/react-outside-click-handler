@@ -1,9 +1,12 @@
 language: node_js
 node_js:
   - "6"
+before_script:
+  - cd example && yarn install && cd ..
 script:
   - yarn lint
   - yarn build
   - yarn test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 cache:
-  - yarn
+  directories:
+  - example/node_modules

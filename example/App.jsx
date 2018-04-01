@@ -2,7 +2,7 @@ import cx from 'classnames';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 
-import OutsideClickHandler from '../lib/OutsideClickHandler';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import './style.css';
 

@@ -1,21 +1,19 @@
 const path = require('path');
+const {
+  HotModuleReplacementPlugin,
+  NamedModulesPlugin,
+  NoEmitOnErrorsPlugin,
+} = require('webpack');
 
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 
-const webpackBaseConfig = require('./webpack.base.config');
-
-const paths = {
-  example: path.resolve(__dirname, 'example'),
-};
-
-module.exports = webpackMerge(webpackBaseConfig, {
+module.exports = {
+  mode: 'development',
   entry: {
     app: [
       'webpack-dev-server/client?http://0.0.0.0:3000',
       'webpack/hot/only-dev-server',
-      './example/index.jsx',
+      './index.jsx',
     ],
   },
   output: {
@@ -48,10 +46,19 @@ module.exports = webpackMerge(webpackBaseConfig, {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.join(paths.example, 'index.html'),
+    new HotModuleReplacementPlugin(),
+    new HtmlPlugin({
+      template: path.join(__dirname, 'index.html'),
       inject: 'body',
     }),
+    new NamedModulesPlugin(),
+    new NoEmitOnErrorsPlugin(),
   ],
-});
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  stats: {
+    colors: true,
+    reasons: true,
+  },
+};
