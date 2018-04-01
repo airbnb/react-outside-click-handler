@@ -3,5 +3,7 @@ node_js:
   - "6"
 script:
   - yarn lint
+  - yarn build
   - yarn test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-cache: yarn
+cache:
+  - yarn

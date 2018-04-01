@@ -1,12 +1,12 @@
 import cx from 'classnames';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hot } from 'react-hot-loader';
 
 import OutsideClickHandler from '../lib/OutsideClickHandler';
 
 import './style.css';
 
-class Root extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,15 +19,15 @@ class Root extends React.Component {
   }
 
   render() {
-    const boxClassNames = cx('Box', {
-      'Box--active': this.state.active,
-      'Box--inactive': !this.state.active,
+    const className = cx('App', {
+      'App--active': this.state.active,
+      'App--inactive': !this.state.active,
     });
 
     return (
-      <div className="Root">
+      <div className="App">
         <OutsideClickHandler onOutsideClick={() => this.handleClick(false)}>
-          <div className={boxClassNames}>
+          <div className={className}>
             Inside {this.state.active ? 'Active' : 'Inactive'}
             <button onClick={() => this.handleClick(true)}>Inside</button>
           </div>
@@ -37,4 +37,4 @@ class Root extends React.Component {
   }
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+export default hot(module)(App);

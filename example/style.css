@@ -1,13 +1,13 @@
-.Box {
+.App {
   color: blue;
   font-size: 30px;
   height: 100px;
 }
 
-.Box--active {
+.App--active {
   border: 2px solid yellow;
 }
 
-.Box--inactive {
+.App--inactive {
   border: 2px solid red;
 }

@@ -15,7 +15,7 @@ module.exports = webpackMerge(webpackBaseConfig, {
     app: [
       'webpack-dev-server/client?http://0.0.0.0:3000',
       'webpack/hot/only-dev-server',
-      './example/app.jsx',
+      './example/index.jsx',
     ],
   },
   output: {
@@ -35,7 +35,11 @@ module.exports = webpackMerge(webpackBaseConfig, {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['react-hot-loader', 'babel-loader'],
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          plugins: ['react-hot-loader/babel'],
+        },
       },
       {
         test: /\.css$/,

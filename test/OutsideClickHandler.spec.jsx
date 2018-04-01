@@ -43,7 +43,7 @@ describe('<OutsideClickHandler />', () => {
   });
 
   describe('#handleOutsideClick', () => {
-    it('should calls props.onOutsideClick when event target is not decendant of this.childNode', () => {
+    it('should calls props.onOutsideClick when event target is not descendant of this.childNode', () => {
       const event = { target: null };
       const onOutsideClick = jest.fn();
       const wrapper = shallow(<OutsideClickHandler onOutsideClick={onOutsideClick} />);
@@ -52,7 +52,7 @@ describe('<OutsideClickHandler />', () => {
       expect(onOutsideClick).toHaveBeenCalledWith(event);
     });
 
-    it('should not calls props.onOutsideClick when event target is decendant of this.childNode', () => {
+    it('should not calls props.onOutsideClick when event target is descendant of this.childNode', () => {
       const event = { target: null };
       const onOutsideClick = jest.fn();
       const wrapper = shallow(<OutsideClickHandler onOutsideClick={onOutsideClick} />);
