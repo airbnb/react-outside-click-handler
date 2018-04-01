@@ -20,7 +20,7 @@
   "scripts": {
     "start": "yarn serve",
     "build": "webpack --config webpack.dist.config.js --progress",
-    "lint": "eslint lib test --ext .js,.jsx",
+    "lint": "eslint lib test example --ext .js,.jsx",
     "precommit": "lint-staged",
     "prepush": "yarn lint && yarn test",
     "serve": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
