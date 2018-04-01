@@ -1,19 +1,22 @@
 {
   "extends": "airbnb",
-  "rules": {
-    "import/no-extraneous-dependencies": 0
-  },
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import"
-  ],
-  "globals": {
-    "describe": false,
-    "it": false,
-    "expect": false
-  },
+  "plugins": ["react", "jsx-a11y", "import"],
   "env": {
     "browser": true
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.spec.js", "*.spec.jsx", "test/**/*.js"],
+      "plugins": ["react", "jsx-a11y", "import", "jest"],
+      "env": {
+        "jest": true
+      }
+    },
+    {
+      "files": ["example/**/*.js", "example/**/*.jsx"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    }
+  ]
 }

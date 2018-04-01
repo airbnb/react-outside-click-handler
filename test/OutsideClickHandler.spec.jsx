@@ -1,51 +1,64 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { shallow } from 'enzyme';
+
 import OutsideClickHandler from '../lib/OutsideClickHandler';
 
 describe('<OutsideClickHandler />', () => {
-  it('calls componentDidMount', () => {
-    sinon.spy(OutsideClickHandler.prototype, 'componentDidMount');
-    mount(<OutsideClickHandler />);
-    expect(OutsideClickHandler.prototype.componentDidMount.calledOnce).to.equal(true);
+  describe('#render', () => {
+    it('should match to snapshot when render by default', () => {
+      const wrapper = shallow(<OutsideClickHandler />);
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 
-  it('simulates outside click events', () => {
-    const onOutsideClick = sinon.spy();
-    const components = (
-      <div>
-        <button id="outside-button" type="button">Outside Click Button</button>
-        <OutsideClickHandler onOutsideClick={onOutsideClick}>
-          <ul>
-            <li>react</li>
-            <li>react-router</li>
-            <li>redux</li>
-            <li>immutable.js</li>
-            <li>reselect</li>
-          </ul>
-        </OutsideClickHandler>
-      </div>
-    );
-
-    const div = document.createElement('div');
-    div.id = 'root';
-    document.body.appendChild(div);
-
-    const root = document.getElementById('root');
-    ReactDOM.render(components, root);
-
-    document.getElementById('outside-button').click();
-    ReactDOM.unmountComponentAtNode(root);
-    document.body.innerHTML = '';
-
-    expect(onOutsideClick.calledOnce).to.equal(true);
+  describe('#componentDidMount', () => {
+    it('should add click event listener to document', () => {
+      const addEventListener = jest.spyOn(document, 'addEventListener');
+      const wrapper = shallow(<OutsideClickHandler />);
+      expect(addEventListener).toHaveBeenCalledTimes(1);
+      expect(addEventListener).toHaveBeenCalledWith('click', wrapper.instance().handleOutsideClick, true);
+      addEventListener.mockRestore();
+    });
   });
 
-  it('calls componentWillUnmount', () => {
-    sinon.spy(OutsideClickHandler.prototype, 'componentWillUnmount');
-    const wrapper = mount(<OutsideClickHandler />);
-    wrapper.unmount();
-    expect(OutsideClickHandler.prototype.componentWillUnmount.calledOnce).to.equal(true);
+  describe('#componentWillUnmount', () => {
+    it('should remove click event listener to document', () => {
+      const removeEventListener = jest.spyOn(document, 'removeEventListener');
+      const wrapper = shallow(<OutsideClickHandler />);
+      const { handleOutsideClick } = wrapper.instance();
+      wrapper.unmount();
+      expect(removeEventListener).toHaveBeenCalledTimes(1);
+      expect(removeEventListener).toHaveBeenCalledWith('click', handleOutsideClick, true);
+      removeEventListener.mockRestore();
+    });
+  });
+
+  describe('#setChildNode', () => {
+    it('should set childNode', () => {
+      const ref = { value: 1 };
+      const wrapper = shallow(<OutsideClickHandler />);
+      wrapper.instance().setChildNode(ref);
+      expect(wrapper.instance().childNode).toEqual(ref);
+    });
+  });
+
+  describe('#handleOutsideClick', () => {
+    it('should calls props.onOutsideClick when event target is not decendant of this.childNode', () => {
+      const event = { target: null };
+      const onOutsideClick = jest.fn();
+      const wrapper = shallow(<OutsideClickHandler onOutsideClick={onOutsideClick} />);
+      wrapper.instance().childNode = { contains() { return false; } };
+      wrapper.instance().handleOutsideClick(event);
+      expect(onOutsideClick).toHaveBeenCalledWith(event);
+    });
+
+    it('should not calls props.onOutsideClick when event target is decendant of this.childNode', () => {
+      const event = { target: null };
+      const onOutsideClick = jest.fn();
+      const wrapper = shallow(<OutsideClickHandler onOutsideClick={onOutsideClick} />);
+      wrapper.instance().childNode = { contains() { return true; } };
+      wrapper.instance().handleOutsideClick(event);
+      expect(onOutsideClick).not.toHaveBeenCalled();
+    });
   });
 });

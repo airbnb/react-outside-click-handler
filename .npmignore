@@ -1,14 +1,7 @@
-.babelrc
-.editorconfig
-.eslintrc
-.travis.yml
+.*
 
+coverage
 example
 test
-
-karma.conf.js
 webpack.*.config.js
 yarn.lock
-
-.idea/
-
