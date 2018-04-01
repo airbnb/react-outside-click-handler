@@ -1,3 +1,4 @@
+dist/
 node_modules/
 rollup.config.js
 webpack.*.config.js
