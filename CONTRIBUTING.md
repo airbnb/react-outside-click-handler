@@ -7,7 +7,7 @@ All contributions are welcome.
 Fork, then clone the repo.
 
 ```bash
-$ git clone https://github.com/{your-username}/react-redux.git
+$ git clone https://github.com/{your-username}/react-outside-click-handler.git
 ```
 
 ### Build
