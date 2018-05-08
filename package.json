@@ -1,0 +1,72 @@
+{
+  "name": "react-outside-click-handler",
+  "version": "0.0.0",
+  "description": "A React component for dealing with clicks outside its subtree",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "BABEL_ENV=cjs babel src/ -d build/",
+    "build:esm": "BABEL_ENV=esm babel src/ -d esm/",
+    "clean": "rimraf build esm",
+    "lint": "eslint --ext .js,.jsx src test",
+    "mocha": "mocha",
+    "react": "enzyme-adapter-react-install 16",
+    "pretest": "npm run --silent lint",
+    "pretests-only": "npm run react",
+    "tests-only": "npm run mocha --silent test",
+    "test": "npm run tests-only",
+    "tag": "git tag v$npm_package_version",
+    "version:patch": "npm --no-git-tag-version version patch",
+    "version:minor": "npm --no-git-tag-version version minor",
+    "version:major": "npm --no-git-tag-version version major",
+    "preversion": "npm run test && npm run check-changelog && npm run check-only-changelog-changed",
+    "postversion": "git commit package.json CHANGELOG.md -m \"Version $npm_package_version\" && npm run tag && git push && git push --tags && npm publish --registry=https://registry.npmjs.org/",
+    "prepublish": "in-publish && safe-publish-latest && npm run build || not-in-publish",
+    "check-changelog": "expr $(git status --porcelain 2>/dev/null| grep \"^\\s*M.*CHANGELOG.md\" | wc -l) >/dev/null || (echo 'Please edit CHANGELOG.md' && exit 1)",
+    "check-only-changelog-changed": "(expr $(git status --porcelain 2>/dev/null| grep -v \"CHANGELOG.md\" | wc -l) >/dev/null && echo 'Only CHANGELOG.md may have uncommitted changes' && exit 1) || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/airbnb/react-outside-click-handler.git"
+  },
+  "author": "Maja Wichrowska <maja.wichrowska@airbnb.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/airbnb/react-outside-click-handler/issues"
+  },
+  "homepage": "https://github.com/airbnb/react-outside-click-handler#readme",
+  "devDependencies": {
+    "airbnb-js-shims": "^1.4.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-preset-airbnb": "^2.4.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-helper": "^1.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-with-styles": "^2.0.0",
+    "in-publish": "^2.0.0",
+    "mocha": "^3.5.3",
+    "mocha-wrap": "^2.1.1",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "rimraf": "^2.6.2",
+    "safe-publish-latest": "^1.1.1",
+    "sinon": "^5.0.1",
+    "sinon-sandbox": "^1.0.2"
+  },
+  "dependencies": {
+    "consolidated-events": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react": "^0.14 || >=15",
+    "react-dom": "^0.14 || >=15"
+  }
+}

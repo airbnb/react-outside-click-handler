@@ -1,0 +1,16 @@
+{
+  "env": {
+    "development": {
+      "presets": ["airbnb"],
+    },
+    "test": {
+      "presets": ["airbnb"]
+    },
+    "cjs": {
+      "presets": ["airbnb"]
+    },
+    "esm": {
+      "presets": [["airbnb", { "modules": false }]]
+    }
+  }
+}
