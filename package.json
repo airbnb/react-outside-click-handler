@@ -54,12 +54,12 @@
     "eslint-plugin-react-with-styles": "^2.0.0",
     "in-publish": "^2.0.0",
     "mocha": "^3.5.3",
-    "mocha-wrap": "^2.1.1",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "mocha-wrap": "^2.1.2",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "rimraf": "^2.6.2",
     "safe-publish-latest": "^1.1.1",
-    "sinon": "^5.0.1",
+    "sinon": "^5.0.7",
     "sinon-sandbox": "^1.0.2"
   },
   "dependencies": {
