@@ -4,11 +4,17 @@ import PropTypes from 'prop-types';
 import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
 
+const DISPLAY = {
+  BLOCK: 'block',
+  INLINE_BLOCK: 'inline-block',
+};
+
 const propTypes = forbidExtraProps({
   children: PropTypes.node.isRequired,
   onOutsideClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
+  display: PropTypes.oneOf(Object.values(DISPLAY)),
 });
 
 const defaultProps = {
@@ -17,6 +23,7 @@ const defaultProps = {
   // `useCapture` is set to true by default so that a `stopPropagation` in the
   // children will not prevent all outside click handlers from firing - maja
   useCapture: true,
+  display: DISPLAY.BLOCK,
 };
 
 export default class OutsideClickHandler extends React.Component {
@@ -100,10 +107,13 @@ export default class OutsideClickHandler extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, display } = this.props;
 
     return (
-      <div ref={this.setChildNodeRef}>
+      <div
+        ref={this.setChildNodeRef}
+        style={display === DISPLAY.INLINE_BLOCK ? { display } : undefined}
+      >
         {children}
       </div>
     );
