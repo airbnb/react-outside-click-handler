@@ -1,6 +1,6 @@
 {
   "name": "react-outside-click-handler",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A React component for dealing with clicks outside its subtree",
   "main": "index.js",
   "scripts": {
