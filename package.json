@@ -63,7 +63,7 @@
     "sinon-sandbox": "^1.0.2"
   },
   "dependencies": {
-    "airbnb-prop-types": "^2.9.0",
+    "airbnb-prop-types": "^2.10.0",
     "consolidated-events": "^1.1.1",
     "prop-types": "^15.6.1"
   },
