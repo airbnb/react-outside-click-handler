@@ -1,0 +1,10 @@
+{
+  "env": {
+    "mocha": true,
+  },
+  "rules": {
+    "indent": [2, 2, {
+      "MemberExpression": "off"
+    }],
+  }
+}
