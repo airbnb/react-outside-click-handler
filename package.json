@@ -65,6 +65,7 @@
   "dependencies": {
     "airbnb-prop-types": "^2.10.0",
     "consolidated-events": "^1.1.1",
+    "object.values": "^1.0.4",
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {

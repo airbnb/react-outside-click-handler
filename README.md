@@ -44,6 +44,6 @@ See https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Ev
 
 If `useCapture` is true, the event will be registered in the capturing phase and thus, propagated top-down instead of bottom-up as is the default.
 
-### display: `PropTypes.oneOf(['block', 'inline-block'])`
+### display: `PropTypes.oneOf(['block', 'flex', 'inline-block'])`
 
-By default, the `OutsideClickHandler` renders a `display: block` `<div />` to wrap the subtree defined by `children`. If desired, the `display` can be set to `inline-block` instead. There is no way not to render a wrapping `<div />`.
+By default, the `OutsideClickHandler` renders a `display: block` `<div />` to wrap the subtree defined by `children`. If desired, the `display` can be set to `inline-block` or `flex` instead. There is no way not to render a wrapping `<div />`.
