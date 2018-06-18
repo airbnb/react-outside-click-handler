@@ -4,7 +4,7 @@
 
 ## Usage
 
-```
+```jsx
 import OutsideClickHandler from 'react-outside-click-handler';
 
 function MyComponent() {
