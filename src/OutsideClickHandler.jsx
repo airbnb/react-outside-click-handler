@@ -16,7 +16,7 @@ const propTypes = forbidExtraProps({
   onOutsideClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
-  display: PropTypes.oneOf(Object.values(DISPLAY)),
+  display: PropTypes.oneOf(objectValues(DISPLAY)),
 });
 
 const defaultProps = {
