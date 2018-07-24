@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.2.2
+ - Add .npmignore, fixes ([#6](https://github.com/airbnb/react-outside-click-handler/issues/6))
+
 ## v1.2.1
  - [Fix] use `object.values` instead of `Object.values`
 
