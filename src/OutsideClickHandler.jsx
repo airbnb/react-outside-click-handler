@@ -17,6 +17,8 @@ const propTypes = forbidExtraProps({
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
   display: PropTypes.oneOf(objectValues(DISPLAY)),
+  style: PropTypes.object,
+  className: PropTypes.string,
 });
 
 const defaultProps = {
@@ -109,16 +111,20 @@ export default class OutsideClickHandler extends React.Component {
   }
 
   render() {
-    const { children, display } = this.props;
+    const {
+      children, display, style, className,
+    } = this.props;
 
     return (
       <div
         ref={this.setChildNodeRef}
-        style={
-          display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
-            ? { display }
-            : undefined
-        }
+        className={className || undefined}
+        style={{
+          ...style,
+          display: display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
+            ? display
+            : undefined,
+        }}
       >
         {children}
       </div>
