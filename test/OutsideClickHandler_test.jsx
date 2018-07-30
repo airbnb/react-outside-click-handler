@@ -24,6 +24,26 @@ describe('OutsideClickHandler', () => {
         { type: 'nav', id: 'b' },
       ]);
     });
+
+    it('renders with the className it\'s given', () => {
+      const wrapper = shallow((
+        <OutsideClickHandler className="class-one">
+          <section id="a" />
+        </OutsideClickHandler>
+      ));
+
+      expect(wrapper.find('div').hasClass('class-one')).to.eql(true);
+    });
+
+    it('renders with the style it\'s given', () => {
+      const wrapper = shallow((
+        <OutsideClickHandler style={{ fontSize: 14 }}>
+          <section id="a" />
+        </OutsideClickHandler>
+      ));
+
+      expect(wrapper.find('div').props().style.fontSize).to.eql(14);
+    });
   });
 
   describe('#onOutsideClick()', () => {
