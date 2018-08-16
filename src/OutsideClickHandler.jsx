@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
-import objectValues from 'object.values';
 
 const DISPLAY = {
   BLOCK: 'block',
@@ -11,12 +10,23 @@ const DISPLAY = {
   INLINE_BLOCK: 'inline-block',
 };
 
+// Use `for..in` loop in place of `Object.values` since we only
+// use `DISPLAY_VALUES` for prop validation.
+const DISPLAY_VALUES = [];
+/* eslint-disable no-restricted-syntax */
+for (const displayType in DISPLAY) {
+  if (Object.prototype.propertyIsEnumerable.call(DISPLAY, displayType)) {
+    DISPLAY_VALUES.push(DISPLAY[displayType]);
+  }
+}
+/* eslint-enable no-restricted-syntax */
+
 const propTypes = forbidExtraProps({
   children: PropTypes.node.isRequired,
   onOutsideClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
-  display: PropTypes.oneOf(objectValues(DISPLAY)),
+  display: PropTypes.oneOf(DISPLAY_VALUES),
 });
 
 const defaultProps = {
@@ -115,7 +125,7 @@ export default class OutsideClickHandler extends React.Component {
       <div
         ref={this.setChildNodeRef}
         style={
-          display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
+          display !== DISPLAY.BLOCK && DISPLAY_VALUES.includes(display)
             ? { display }
             : undefined
         }
