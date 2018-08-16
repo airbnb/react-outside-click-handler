@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 
 import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
-import objectValues from 'object.values';
 
+// Remember to keep `DISPLAY` and the below `DISPLAY_VALUES` in sync.
 const DISPLAY = {
   BLOCK: 'block',
   FLEX: 'flex',
   INLINE_BLOCK: 'inline-block',
 };
 
+const DISPLAY_VALUES = ['block', 'flex', 'inline-block'];
+
 const propTypes = forbidExtraProps({
   children: PropTypes.node.isRequired,
   onOutsideClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
-  display: PropTypes.oneOf(objectValues(DISPLAY)),
+  display: PropTypes.oneOf(DISPLAY_VALUES),
 });
 
 const defaultProps = {
@@ -115,7 +117,7 @@ export default class OutsideClickHandler extends React.Component {
       <div
         ref={this.setChildNodeRef}
         style={
-          display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
+          display !== DISPLAY.BLOCK && DISPLAY_VALUES.includes(display)
             ? { display }
             : undefined
         }
