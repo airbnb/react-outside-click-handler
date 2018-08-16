@@ -4,22 +4,14 @@ import PropTypes from 'prop-types';
 import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
 
+// Remember to keep `DISPLAY` and the below `DISPLAY_VALUES` in sync.
 const DISPLAY = {
   BLOCK: 'block',
   FLEX: 'flex',
   INLINE_BLOCK: 'inline-block',
 };
 
-// Use `for..in` loop in place of `Object.values` since we only
-// use `DISPLAY_VALUES` for prop validation.
-const DISPLAY_VALUES = [];
-/* eslint-disable no-restricted-syntax */
-for (const displayType in DISPLAY) {
-  if (Object.prototype.propertyIsEnumerable.call(DISPLAY, displayType)) {
-    DISPLAY_VALUES.push(DISPLAY[displayType]);
-  }
-}
-/* eslint-enable no-restricted-syntax */
+const DISPLAY_VALUES = ['block', 'flex', 'inline-block'];
 
 const propTypes = forbidExtraProps({
   children: PropTypes.node.isRequired,
