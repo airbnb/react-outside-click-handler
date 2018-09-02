@@ -38,6 +38,10 @@ The `onOutsideClick` prop is also required as without it, the `OutsideClickHandl
 
 If the `disabled` prop is true, outside clicks will not be registered. This can be utilized to temporarily disable interaction without unmounting/remounting the entire tree.
 
+### classWhiteList: `PropTypes.string`
+
+When specified, click events are ignored if the target node is a child of a class defined in the classWhiteList. Multiple classes can be specified separated by a space (e.g. classWhiteList="class-1, class2").
+
 ### useCapture: `PropTypes.bool`
 
 See https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture for more information on event bubbling vs. capture.
