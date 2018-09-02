@@ -40,7 +40,7 @@ If the `disabled` prop is true, outside clicks will not be registered. This can 
 
 ### classWhiteList: `PropTypes.string`
 
-When specified, click events are ignored if the target node is a child of a class defined in the classWhiteList. Multiple classes can be specified separated by a space (e.g. classWhiteList="class-1, class2").
+When specified, click events are ignored if the target node is a child of a class defined in the classWhiteList. Multiple classes can be specified separated by a space (e.g. classWhiteList="class-1 class2").
 
 ### useCapture: `PropTypes.bool`
 
