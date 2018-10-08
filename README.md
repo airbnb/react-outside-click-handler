@@ -1,5 +1,7 @@
 # react-outside-click-handler
 
+[![TypeScript typings](https://img.shields.io/badge/definetly_typed-.d.ts-blue.svg?style=flat-square)](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-outside-click-handler)
+
 > A React component for handling outside clicks
 
 ## Usage
