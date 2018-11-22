@@ -34,13 +34,17 @@ export default class OutsideClickHandler extends React.Component {
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onPointerDown = this.onPointerDown.bind(this);
+    this.onPointerUp = this.onPointerUp.bind(this);
+    this.downHandler = this.downHandler.bind(this);
+    this.upHandler = this.upHandler.bind(this);
     this.setChildNodeRef = this.setChildNodeRef.bind(this);
   }
 
   componentDidMount() {
     const { disabled, useCapture } = this.props;
 
-    if (!disabled) this.addMouseDownEventListener(useCapture);
+    if (!disabled) this.addDownEventListeners(useCapture);
   }
 
   componentWillReceiveProps({ disabled, useCapture }) {
@@ -49,7 +53,7 @@ export default class OutsideClickHandler extends React.Component {
       if (disabled) {
         this.removeEventListeners();
       } else {
-        this.addMouseDownEventListener(useCapture);
+        this.addDownEventListeners(useCapture);
       }
     }
   }
@@ -58,47 +62,76 @@ export default class OutsideClickHandler extends React.Component {
     this.removeEventListeners();
   }
 
-  // Use mousedown/mouseup to enforce that clicks remain outside the root's
-  // descendant tree, even when dragged. This should also get triggered on
-  // touch devices.
+  // Use mousedown/mouseup or pointerdown/pointerup to enforce that clicks remain
+  // outside the root's descendant tree, even when dragged. This should also get
+  // triggered on touch devices.
   onMouseDown(e) {
-    const { useCapture } = this.props;
-
-    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
-    if (!isDescendantOfRoot) {
-      this.removeMouseUp = addEventListener(
-        document,
-        'mouseup',
-        this.onMouseUp,
-        { capture: useCapture },
-      );
-    }
+    this.downHandler(e, 'removeMouseUp', 'mouseup', this.onMouseUp);
   }
 
-  // Use mousedown/mouseup to enforce that clicks remain outside the root's
-  // descendant tree, even when dragged. This should also get triggered on
-  // touch devices.
+  onPointerDown(e) {
+    this.downHandler(e, 'removePointerUp', 'pointerup', this.onPointerUp);
+  }
+
+  // Use mousedown/mouseup or pointerdown/pointerup to enforce that clicks remain
+  // outside the root's descendant tree, even when dragged. This should also get
+  // triggered on touch devices.
   onMouseUp(e) {
-    const { onOutsideClick } = this.props;
+    this.upHandler(e, 'removeMouseUp');
+  }
 
-    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
-    if (this.removeMouseUp) this.removeMouseUp();
-    this.removeMouseUp = null;
-
-    if (!isDescendantOfRoot) {
-      onOutsideClick(e);
-    }
+  onPointerUp(e) {
+    this.upHandler(e, 'removePointerUp');
   }
 
   setChildNodeRef(ref) {
     this.childNode = ref;
   }
 
-  addMouseDownEventListener(useCapture) {
+  downHandler(e, removeUpHandlerName, eventName, callback) {
+    const { useCapture } = this.props;
+
+    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
+    if (!isDescendantOfRoot) {
+      this[removeUpHandlerName] = addEventListener(
+        document,
+        eventName,
+        callback,
+        { capture: useCapture },
+      );
+    }
+  }
+
+  upHandler(e, removeUpHandlerName) {
+    const { onOutsideClick } = this.props;
+
+    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
+    if (this[removeUpHandlerName]) this[removeUpHandlerName]();
+    this[removeUpHandlerName] = null;
+
+    if (!isDescendantOfRoot) {
+      if (this.lastUpTimestamp === e.timeStamp
+        && this.lastUpRemoveHandlerName === 'removePointerUp'
+        && removeUpHandlerName === 'removeMouseUp') {
+        return;
+      }
+      onOutsideClick(e);
+      this.lastUpTimestamp = e.timeStamp;
+      this.lastUpRemoveHandlerName = removeUpHandlerName;
+    }
+  }
+
+  addDownEventListeners(useCapture) {
     this.removeMouseDown = addEventListener(
       document,
       'mousedown',
       this.onMouseDown,
+      { capture: useCapture },
+    );
+    this.removePointerDown = addEventListener(
+      document,
+      'pointerdown',
+      this.onPointerDown,
       { capture: useCapture },
     );
   }
@@ -106,6 +139,8 @@ export default class OutsideClickHandler extends React.Component {
   removeEventListeners() {
     if (this.removeMouseDown) this.removeMouseDown();
     if (this.removeMouseUp) this.removeMouseUp();
+    if (this.removePointerDown) this.removePointerDown();
+    if (this.removePointerUp) this.removePointerUp();
   }
 
   render() {
