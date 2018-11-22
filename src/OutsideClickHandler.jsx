@@ -110,7 +110,14 @@ export default class OutsideClickHandler extends React.Component {
     this[removeUpHandlerName] = null;
 
     if (!isDescendantOfRoot) {
+      if (this.lastUpTimestamp === e.timeStamp
+        && this.lastUpRemoveHandlerName === 'removePointerUp'
+        && removeUpHandlerName === 'removeMouseUp') {
+        return;
+      }
       onOutsideClick(e);
+      this.lastUpTimestamp = e.timeStamp;
+      this.lastUpRemoveHandlerName = removeUpHandlerName;
     }
   }
 
