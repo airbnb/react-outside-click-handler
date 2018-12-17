@@ -68,6 +68,10 @@ export default class OutsideClickHandler extends React.Component {
 
     const isDescendantOfRoot = this.childNode && contains(this.childNode, e.target);
     if (!isDescendantOfRoot) {
+      if (this.removeMouseUp) {
+        this.removeMouseUp();
+        this.removeMouseUp = null;
+      }
       this.removeMouseUp = addEventListener(
         document,
         'mouseup',
@@ -84,8 +88,10 @@ export default class OutsideClickHandler extends React.Component {
     const { onOutsideClick } = this.props;
 
     const isDescendantOfRoot = this.childNode && contains(this.childNode, e.target);
-    if (this.removeMouseUp) this.removeMouseUp();
-    this.removeMouseUp = null;
+    if (this.removeMouseUp) {
+      this.removeMouseUp();
+      this.removeMouseUp = null;
+    }
 
     if (!isDescendantOfRoot) {
       onOutsideClick(e);
