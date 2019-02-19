@@ -24,6 +24,41 @@ describe('OutsideClickHandler', () => {
         { type: 'nav', id: 'b' },
       ]);
     });
+
+    it('renders with default styles', () => {
+      const wrapper = shallow((
+        <OutsideClickHandler>
+          <section id="a" />
+          <nav id="b" />
+        </OutsideClickHandler>
+      ));
+
+      expect(wrapper.prop('style')).to.have.property('display', 'block');
+    });
+
+    it('renders with given styles', () => {
+      const style = { display: 'flex', justifyContent: 'space-between' };
+      const wrapper = shallow((
+        <OutsideClickHandler style={style}>
+          <section id="a" />
+          <nav id="b" />
+        </OutsideClickHandler>
+      ));
+
+      expect(wrapper.props()).to.have.property('style', style);
+    });
+
+    it('renders with given className', () => {
+      const givenClassName = 'OutsideClickHandler-css-class';
+      const wrapper = shallow((
+        <OutsideClickHandler className={givenClassName}>
+          <section id="a" />
+          <nav id="b" />
+        </OutsideClickHandler>
+      ));
+
+      expect(wrapper.prop('className')).to.equal(givenClassName);
+    });
   });
 
   describe('#onOutsideClick()', () => {
