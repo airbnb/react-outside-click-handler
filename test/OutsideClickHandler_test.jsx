@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon-sandbox';
 import { shallow, mount } from 'enzyme';
 import wrap from 'mocha-wrap';
+import contains from 'document.contains';
 
 import OutsideClickHandler from '../src/OutsideClickHandler';
 
@@ -27,20 +28,23 @@ describe('OutsideClickHandler', () => {
   });
 
   describe('#onOutsideClick()', () => {
-    const target = {};
+    const target = { parentNode: null };
     const event = { target };
+    beforeEach(() => {
+      target.parentNode = null;
+    });
 
     it('is a noop if `this.childNode` contains `e.target`', () => {
       const spy = sinon.spy();
       const wrapper = shallow(<OutsideClickHandler onOutsideClick={spy} />);
       const instance = wrapper.instance();
-      const contains = sinon.stub().returns(true);
-      instance.childNode = { contains };
+
+      instance.childNode = {};
+      target.parentNode = instance.childNode;
+      expect(contains(instance.childNode, target)).to.equal(true);
 
       instance.onMouseUp(event);
 
-      expect(contains).to.have.property('callCount', 1);
-      expect(contains.firstCall.args).to.eql([target]);
       expect(spy).to.have.property('callCount', 0);
     });
 
@@ -49,13 +53,12 @@ describe('OutsideClickHandler', () => {
         const spy = sinon.spy();
         const wrapper = shallow(<OutsideClickHandler onOutsideClick={spy} />);
         const instance = wrapper.instance();
-        const contains = sinon.stub().returns(false);
-        instance.childNode = { contains };
+
+        instance.childNode = {};
+        expect(contains(instance.childNode, target)).to.equal(false);
 
         instance.onMouseUp(event);
 
-        expect(contains).to.have.property('callCount', 1);
-        expect(contains.firstCall.args).to.eql([target]);
         expect(spy).to.have.property('callCount', 1);
         expect(spy.firstCall.args).to.eql([event]);
       });

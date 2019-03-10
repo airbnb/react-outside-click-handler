@@ -5,6 +5,8 @@ import { forbidExtraProps } from 'airbnb-prop-types';
 import { addEventListener } from 'consolidated-events';
 import objectValues from 'object.values';
 
+import contains from 'document.contains';
+
 const DISPLAY = {
   BLOCK: 'block',
   FLEX: 'flex',
@@ -64,7 +66,7 @@ export default class OutsideClickHandler extends React.Component {
   onMouseDown(e) {
     const { useCapture } = this.props;
 
-    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
+    const isDescendantOfRoot = this.childNode && contains(this.childNode, e.target);
     if (!isDescendantOfRoot) {
       this.removeMouseUp = addEventListener(
         document,
@@ -81,7 +83,7 @@ export default class OutsideClickHandler extends React.Component {
   onMouseUp(e) {
     const { onOutsideClick } = this.props;
 
-    const isDescendantOfRoot = this.childNode && this.childNode.contains(e.target);
+    const isDescendantOfRoot = this.childNode && contains(this.childNode, e.target);
     if (this.removeMouseUp) this.removeMouseUp();
     this.removeMouseUp = null;
 

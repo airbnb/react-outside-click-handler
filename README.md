@@ -20,8 +20,6 @@ function MyComponent() {
 }
 ```
 
-For full browser support, `react-outside-click-handler` expects its consumer to include [airbnb-browser-shims](https://github.com/airbnb/browser-shims) or another similar shim. This is specifically due to the use of the [`node.contains`](https://developer.mozilla.org/en-US/docs/Web/API/Node/contains) method.
-
 ## Props
 
 ### children: `PropTypes.node.isRequired`
