@@ -63,11 +63,11 @@
     "sinon-sandbox": "^2.0.0"
   },
   "dependencies": {
-    "airbnb-prop-types": "^2.10.0",
+    "airbnb-prop-types": "^2.12.0",
     "consolidated-events": "^1.1.1 || ^2.0.0",
     "document.contains": "^1.0.0",
-    "object.values": "^1.0.4",
-    "prop-types": "^15.6.1"
+    "object.values": "^1.1.0",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^0.14 || >=15",
