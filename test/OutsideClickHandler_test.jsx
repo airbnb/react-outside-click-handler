@@ -7,6 +7,11 @@ import contains from 'document.contains';
 
 import OutsideClickHandler from '../src/OutsideClickHandler';
 
+const document = {
+  addEventListener() {},
+  removeEventListener() {},
+};
+
 describe('OutsideClickHandler', () => {
   describe('basics', () => {
     it('renders a div', () => {
@@ -113,6 +118,45 @@ describe('OutsideClickHandler', () => {
 
         wrapper.instance().componentWillUnmount();
         expect(document.detachEvent.calledWith('onclick', onOutsideClick)).to.equal(true);
+      });
+    });
+  });
+
+  describe('no zombie event listeners', () => {
+    wrap()
+    .withGlobal('document', () => document)
+    .describe('mocked document', () => {
+      beforeEach(() => {
+        sinon.spy(document, 'addEventListener');
+        sinon.spy(document, 'removeEventListener');
+      });
+
+      it('calls onOutsideClick only once and with no extra eventListeners', () => {
+        const spy = sinon.spy();
+        const wrapper = shallow(<OutsideClickHandler onOutsideClick={spy} />);
+        const instance = wrapper.instance();
+
+        instance.onMouseDown();
+        instance.onMouseDown();
+        instance.onMouseDown();
+        instance.onMouseUp();
+        expect(document.addEventListener).to.have.property('callCount', 3);
+        expect(document.removeEventListener).to.have.property('callCount', 3);
+        expect(spy).to.have.property('callCount', 1);
+      });
+
+      it('removes all eventListeners after componentWillUnmount', () => {
+        const wrapper = shallow(<OutsideClickHandler />);
+        const instance = wrapper.instance();
+
+        instance.onMouseDown();
+        instance.onMouseDown();
+        instance.onMouseDown();
+
+        wrapper.instance().componentWillUnmount();
+
+        expect(document.addEventListener).to.have.property('callCount', 3);
+        expect(document.removeEventListener).to.have.property('callCount', 3);
       });
     });
   });
