@@ -10,6 +10,7 @@ import contains from 'document.contains';
 const DISPLAY = {
   BLOCK: 'block',
   FLEX: 'flex',
+  INLINE: 'inline',
   INLINE_BLOCK: 'inline-block',
 };
 
