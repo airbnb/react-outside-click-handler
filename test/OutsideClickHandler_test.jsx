@@ -40,6 +40,7 @@ describe('OutsideClickHandler', () => {
       const instance = wrapper.instance();
 
       instance.childNode = {};
+      instance._isMounted = true;
       target.parentNode = instance.childNode;
       expect(contains(instance.childNode, target)).to.equal(true);
 
@@ -48,13 +49,28 @@ describe('OutsideClickHandler', () => {
       expect(spy).to.have.property('callCount', 0);
     });
 
-    describe('when `this.childNode` does not contain `e.target`', () => {
+    it('is a noop if `this._isMounted` is `false`', () => {
+      const spy = sinon.spy();
+      const wrapper = shallow(<OutsideClickHandler onOutsideClick={spy} />);
+      const instance = wrapper.instance();
+
+      instance.childNode = {};
+      instance._isMounted = false;
+      expect(contains(instance.childNode, target)).to.equal(false);
+
+      instance.onMouseUp(event);
+
+      expect(spy).to.have.property('callCount', 0);
+    });
+
+    describe('when `this.childNode` does not contain `e.target` and `this._isMounted` is `true`', () => {
       it('calls onOutsideClick', () => {
         const spy = sinon.spy();
         const wrapper = shallow(<OutsideClickHandler onOutsideClick={spy} />);
         const instance = wrapper.instance();
 
         instance.childNode = {};
+        instance._isMounted = true;
         expect(contains(instance.childNode, target)).to.equal(false);
 
         instance.onMouseUp(event);
@@ -63,6 +79,7 @@ describe('OutsideClickHandler', () => {
         expect(spy.firstCall.args).to.eql([event]);
       });
     });
+
   });
 
   describe.skip('lifecycle methods', () => {
