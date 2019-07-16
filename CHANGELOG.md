@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.2.4
+ - [Fix] prevent memory leak if `mousedown` is fired, but `mouseup` isn’t (#20)
+ - [Deps] update `airbnb-prop-types`, `document.contains`
+ - [Dev Deps] update `airbnb-js-shims`, `babel-preset-airbnb`, `enzyme`, `enzyme-adapter-react-helper`, `eslint`, `eslint-plugin-import`, `eslint-plugin-react`, `eslint-config-airbnb`, `eslint-plugin-jsx-a11y`, `sinon-sandbox`
+
 ## v1.2.3
  - [Fix] use `document.contains` instead of implicitly requiring polyfills
  - [Deps] update `object.values`, `prop-types`, `airbnb-prop-types`
