@@ -12,6 +12,7 @@ const DISPLAY = {
   FLEX: 'flex',
   INLINE: 'inline',
   INLINE_BLOCK: 'inline-block',
+  CONTENTS: 'contents',
 };
 
 const propTypes = forbidExtraProps({

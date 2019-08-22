@@ -4,7 +4,6 @@ import sinon from 'sinon-sandbox';
 import { shallow, mount } from 'enzyme';
 import wrap from 'mocha-wrap';
 import contains from 'document.contains';
-
 import OutsideClickHandler from '../src/OutsideClickHandler';
 
 const document = {
@@ -16,6 +15,23 @@ describe('OutsideClickHandler', () => {
   describe('basics', () => {
     it('renders a div', () => {
       expect(shallow(<OutsideClickHandler />).is('div')).to.equal(true);
+    });
+
+    it('renders display others than block properly', () => {
+      const displays = ['flex', 'inline-block', 'contents', 'inline'];
+      displays.forEach((displayType) => {
+        const wrapper = shallow((
+          <OutsideClickHandler display={displayType} />
+        ));
+        expect(wrapper.prop('style')).to.have.property('display', displayType);
+      });
+    });
+
+    it('does not add `display` style when using the default `block`', () => {
+      const wrapper = shallow((
+        <OutsideClickHandler />
+      ));
+      expect(wrapper.props()).not.to.have.property('display');
     });
 
     it('renders the children it‘s given', () => {
