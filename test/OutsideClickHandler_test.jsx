@@ -41,7 +41,7 @@ describe('OutsideClickHandler', () => {
           <nav id="b" />
         </OutsideClickHandler>
       ));
-      expect(wrapper.children().map(x => ({ type: x.type(), id: x.prop('id') }))).to.eql([
+      expect(wrapper.children().map((x) => ({ type: x.type(), id: x.prop('id') }))).to.eql([
         { type: 'section', id: 'a' },
         { type: 'nav', id: 'b' },
       ]);
@@ -191,7 +191,7 @@ describe('OutsideClickHandler display=inline', () => {
           <nav id="b" />
         </OutsideClickHandler>
       ));
-      expect(wrapper.children().map(x => ({ type: x.type(), id: x.prop('id') }))).to.eql([
+      expect(wrapper.children().map((x) => ({ type: x.type(), id: x.prop('id') }))).to.eql([
         { type: 'section', id: 'a' },
         { type: 'nav', id: 'b' },
       ]);
