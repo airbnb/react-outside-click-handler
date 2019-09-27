@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.3.0
+ - [New] `display`: add `contents` (#34)
+ - [New] `display`: add `inline` (#28)
+ - [Refactor] Replace `componentWillReceiveProps` with `componentDidUpdate` for a side effect (#36)
+ - [Deps] update `airbnb-prop-types`
+ - [Dev Deps] update `enzyme-adapter-react-helper`, `eslint`, `eslint-config-airbnb`, `eslint-plugin-import`, `eslint-plugin-react`, `eslint-plugin-react-with-styles`, `rimraf`, `safe-publish-latest`, `sinon-sandbox`; add `eslint-plugin-react-hooks`
+
 ## v1.2.4
  - [Fix] prevent memory leak if `mousedown` is fired, but `mouseup` isn’t (#20)
  - [Deps] update `airbnb-prop-types`, `document.contains`
