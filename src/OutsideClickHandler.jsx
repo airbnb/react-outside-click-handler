@@ -47,8 +47,8 @@ export default class OutsideClickHandler extends React.Component {
     if (!disabled) this.addMouseDownEventListener(useCapture);
   }
 
-  componentWillReceiveProps({ disabled, useCapture }) {
-    const { disabled: prevDisabled } = this.props;
+  componentDidUpdate({ disabled: prevDisabled }) {
+    const { disabled, useCapture } = this.props;
     if (prevDisabled !== disabled) {
       if (disabled) {
         this.removeEventListeners();
