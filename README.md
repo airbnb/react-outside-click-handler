@@ -2,6 +2,18 @@
 
 > A React component for handling outside clicks
 
+## Install
+
+```shell
+$ npm install react-outside-click-handler
+```
+
+or 
+
+```shell
+$ yarn add react-outside-click-handler
+```
+
 ## Usage
 
 ```jsx
