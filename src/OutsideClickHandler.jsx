@@ -124,6 +124,7 @@ export default class OutsideClickHandler extends React.Component {
     return (
       <div
         ref={this.setChildNodeRef}
+        className="react-outside-click-handler"
         style={
           display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
             ? { display }
