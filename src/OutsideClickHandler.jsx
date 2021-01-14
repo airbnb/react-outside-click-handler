@@ -39,9 +39,11 @@ export default class OutsideClickHandler extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.setChildNodeRef = this.setChildNodeRef.bind(this);
+    this._isMounted = false;
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const { disabled, useCapture } = this.props;
 
     if (!disabled) this.addMouseDownEventListener(useCapture);
@@ -59,6 +61,7 @@ export default class OutsideClickHandler extends React.Component {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     this.removeEventListeners();
   }
 
@@ -95,7 +98,7 @@ export default class OutsideClickHandler extends React.Component {
       this.removeMouseUp = null;
     }
 
-    if (!isDescendantOfRoot) {
+    if (this._isMounted && !isDescendantOfRoot) {
       onOutsideClick(e);
     }
   }
