@@ -21,6 +21,7 @@ const propTypes = forbidExtraProps({
   disabled: PropTypes.bool,
   useCapture: PropTypes.bool,
   display: PropTypes.oneOf(objectValues(DISPLAY)),
+  className: PropTypes.default.string,
 });
 
 const defaultProps = {
@@ -29,6 +30,7 @@ const defaultProps = {
   // `useCapture` is set to true by default so that a `stopPropagation` in the
   // children will not prevent all outside click handlers from firing - maja
   useCapture: true,
+  className: '',
   display: DISPLAY.BLOCK,
 };
 
@@ -119,11 +121,12 @@ export default class OutsideClickHandler extends React.Component {
   }
 
   render() {
-    const { children, display } = this.props;
+    const { children, display, className } = this.props;
 
     return (
       <div
         ref={this.setChildNodeRef}
+        className={className}
         style={
           display !== DISPLAY.BLOCK && objectValues(DISPLAY).includes(display)
             ? { display }
